@@ -8,7 +8,6 @@ Users can register, login, and browse movies just like Netflix.
 - Browse Movies and TV Shows
 - Responsive UI (Frontend: React + CSS/Bootstrap)
 - RESTful API with Express & MongoDB
-- Secure Password Hashing with Bcrypt
 - Protected Routes for logged-in users
 
 
