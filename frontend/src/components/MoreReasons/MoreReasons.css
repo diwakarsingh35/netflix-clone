@@ -1,0 +1,41 @@
+.more-reasons-section {
+    margin: 60px 0;
+}
+
+.image-container {
+    margin-top: auto;
+    text-align: right;
+}
+
+.more-reasons {
+    background: linear-gradient(149deg, #192247 0%, #210e17 96.86%);
+    margin-left: 20px;
+    max-width: 290px;
+    padding: 25px 20px;
+    border-radius: 1rem;
+    min-height: 330px;
+    display: flex;
+    flex-direction: column;
+}
+
+.more-reasons h2.title {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: 'DM Sans';
+    margin-bottom: 25px;
+}
+
+.more-reasons p.desp {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: unset;
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+h2.reasons-title {
+    color: #fff;
+    padding-left: 3rem;
+    margin-bottom: 2rem;
+}

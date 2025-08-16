@@ -1,0 +1,96 @@
+.banner {
+    position: relative;
+    height: 95vh;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 10%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0) 100%),
+    url('/src/assets/banner.jpg') center center / cover no-repeat;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.banner_contents_centered {
+    position: relative;
+    z-index: 2;
+    max-width: 660px;
+    margin: 0 auto;
+    padding-top: 140px;
+    text-align: center;
+}
+
+.banner_title {
+    margin-bottom: 16px;
+    font-size: 4rem;
+    font-weight: 700;
+    font-family: 'DM Sans';
+}
+.banner_subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.banner_text {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.banner_email_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}   
+
+.banner_email_input {
+    padding: 17px;
+    font-size: 1rem;
+    outline: none;
+    min-width: 67%;
+    caret-color: rgb(255, 255, 255);
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    color: white;
+}
+
+input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem ;
+  font-weight: 700;
+}
+
+.banner_getStarted_button {
+    padding: 12px 24px;
+    background-color: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.5rem;
+}   
+
+/* Fade bottom effect */
+.banner--fadeBottom {
+    position: absolute;
+    bottom: -112px;
+    left: 0;
+    width: 100%;
+    height: 7rem;
+    background: radial-gradient(50% 500% at 50% -420%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100%), black;
+    z-index: -1;
+}
+/* Red curve shape */
+.banner-shape {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #e50914;
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+    clip-path: view-box;
+} 
+
+
