@@ -19,6 +19,8 @@ Users can register, login, and browse movies just like Netflix.
 - **Authentication:** JWT & Bcrypt
 - **Version Control:** Git & GitHub
 
+- Live site Url :- https://netflix-clone-frontend-tau.vercel.app/
+
 
 
 ## 🚀 Installation & Setup
