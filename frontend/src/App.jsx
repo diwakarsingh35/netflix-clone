@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +17,7 @@ import Dashboard from './pages/Admindashboard';
 import Users from './pages/Users';
 import Settings from './pages/Settings';
 
+// Auth Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
