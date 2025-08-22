@@ -9,15 +9,25 @@ exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Check existing user
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ msg: "User already exists" });
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ name, email, password: hashedPassword });
+
+    // Always set role as "user" by default (avoid security risk)
+    const newUser = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+      role: "user", 
+    });
 
     res.status(201).json({ msg: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ msg: err.message });
+    console.error("Register Error:", err);
+    res.status(500).json({ msg: "Server error" });
   }
 };
 
@@ -32,13 +42,26 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    // JWT token with role
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({
+      msg: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
   } catch (err) {
-    res.status(500).json({ msg: err.message });
+    console.error("Login Error:", err);
+    res.status(500).json({ msg: "Server error" });
   }
 };
 
@@ -50,14 +73,19 @@ exports.forgotPasswordController = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ msg: "User not found" });
 
-    // Generate a random reset token
+    // Generate reset token
     const resetToken = crypto.randomBytes(20).toString("hex");
+
+    // Save token + expiry in DB
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpire = Date.now() + 15 * 60 * 1000; // 15 mins
+    await user.save({ validateBeforeSave: false });
 
     // Configure nodemailer
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,
-      secure: false, // true for 465, false for other ports
+      secure: process.env.SMTP_PORT == 465, 
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -65,17 +93,24 @@ exports.forgotPasswordController = async (req, res) => {
     });
 
     const mailOptions = {
-      from: process.env.SMTP_USER,
+      from: `"Support Team" <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Password Reset Request",
-      text: `Your password reset token is: ${resetToken}`,
+      html: `
+        <h2>Password Reset</h2>
+        <p>Click the link below to reset your password:</p>
+        <a href="${process.env.CLIENT_URL}/reset-password/${resetToken}">
+          Reset Password
+        </a>
+        <p>This link is valid for 15 minutes.</p>
+      `,
     };
 
     await transporter.sendMail(mailOptions);
 
-    res.status(200).json({ msg: "Password reset email sent", resetToken });
+    res.status(200).json({ msg: "Password reset email sent" });
   } catch (err) {
-    console.error(err);
+    console.error("Forgot Password Error:", err);
     res.status(500).json({ msg: "Server error" });
   }
 };

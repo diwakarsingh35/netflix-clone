@@ -1,6 +1,5 @@
 // src/pages/Login.jsx
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -18,7 +17,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://netflix-clone-backend-topaz.vercel.app/api/auth/login", {
+      const res = await fetch("https://netflix-clone-backend-topaz.vercel.appapi/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -28,10 +27,17 @@ export default function Login() {
       setLoading(false);
 
       if (res.ok) {
-        // Save token and user info
+        // Save token + user info
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/");
+        localStorage.setItem("role", data.user.role); // save role
+
+        // redirect based on role
+        if (data.user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else {
         alert(data.message || "Login failed");
       }
@@ -78,6 +84,7 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+
         <div className="text-center mt-3">
           <Link to="/forgot-password">Forgot Password?</Link>
         </div>
@@ -85,6 +92,7 @@ export default function Login() {
           Don’t have an account? <Link to="/register">Register</Link>
         </div>
       </div>
-    </div>
+    </div>  
   );
 }
+  

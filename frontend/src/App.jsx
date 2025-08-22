@@ -22,6 +22,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 
+// Protected Route
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+
 export default function App() {
   return (
     <Router>
@@ -46,38 +49,44 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* Admin Dashboard Routes */}
+        {/* Admin Dashboard Routes (Protected) */}
         <Route
           path="/admin"
           element={
-            <div className="d-flex">
-              <Sidebar />
-              <div className="p-4 flex-grow-1">
-                <Dashboard />
+            <ProtectedAdminRoute>
+              <div className="d-flex">
+                <Sidebar />
+                <div className="p-4 flex-grow-1">
+                  <Dashboard />
+                </div>
               </div>
-            </div>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="/admin/users"
           element={
-            <div className="d-flex">
-              <Sidebar />
-              <div className="p-4 flex-grow-1">
-                <Users />
+            <ProtectedAdminRoute>
+              <div className="d-flex">
+                <Sidebar />
+                <div className="p-4 flex-grow-1 bg-white">
+                  <Users />
+                </div>
               </div>
-            </div>
+            </ProtectedAdminRoute>
           }
         />
         <Route
           path="/admin/settings"
           element={
-            <div className="d-flex">
-              <Sidebar />
-              <div className="p-4 flex-grow-1">
-                <Settings />
+            <ProtectedAdminRoute>
+              <div className="d-flex">
+                <Sidebar />
+                <div className="p-4 flex-grow-1">
+                  <Settings />
+                </div>
               </div>
-            </div>
+            </ProtectedAdminRoute>
           }
         />
       </Routes>
