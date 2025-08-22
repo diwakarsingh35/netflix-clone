@@ -8,7 +8,7 @@ export default function Dashboard() {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token"); // if your API needs auth
-        const res = await fetch("https://netflix-clone-backend-topaz.vercel.appapi/users", {
+        const res = await fetch("https://netflix-clone-backend-topaz.vercel.app/api/users", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

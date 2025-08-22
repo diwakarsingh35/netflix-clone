@@ -23,7 +23,7 @@ const Users = () => {
         return;
       }
 
-      const res = await fetch("https://netflix-clone-backend-topaz.vercel.appapi/users", {
+      const res = await fetch("https://netflix-clone-backend-topaz.vercel.app/api/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -45,7 +45,7 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`https://netflix-clone-backend-topaz.vercel.appapi/users/${id}`, {
+      const res = await fetch(`https://netflix-clone-backend-topaz.vercel.app/api/users/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -67,10 +67,11 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`https://netflix-clone-backend-topaz.vercel.appapi/users/block/${id}`, {
+      const res = await fetch(`https://netflix-clone-backend-topaz.vercel.app/api/users/block/${id}`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });
+   
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to block/unblock user");
@@ -98,7 +99,7 @@ const Users = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`https://netflix-clone-backend-topaz.vercel.appapi/users/${editUser._id}`, {
+      const res = await fetch(`https://netflix-clone-backend-topaz.vercel.app/api/users/${editUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
