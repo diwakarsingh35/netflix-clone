@@ -8,7 +8,6 @@ Users can register, login, and browse movies just like Netflix.
 - Browse Movies and TV Shows
 - Responsive UI (Frontend: React + CSS/Bootstrap)
 - RESTful API with Express & MongoDB
-- Secure Password Hashing with Bcrypt
 - Protected Routes for logged-in users
 
 
@@ -18,6 +17,8 @@ Users can register, login, and browse movies just like Netflix.
 - **Database:** MongoDB
 - **Authentication:** JWT & Bcrypt
 - **Version Control:** Git & GitHub
+
+- Live site Url :- https://netflix-clone-frontend-tau.vercel.app/
 
 
 
